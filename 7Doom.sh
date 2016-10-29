@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ################################################
 # 7 Days To Die - Out of memory prevent crash  #
 ################################################
@@ -11,14 +11,15 @@
 #		have a clean shutdown instead.
 
 INSTANCE=$1;
-LNG=$2;
+PORT=$2;
+LNG=$3;
 SD="/usr/local/bin/7dtd.sh";
 DT=`date "+%Y-%m-%d %H-%M"`;
 # MTF prevents the anti zombie process to restart the instance
 MTF="/root/$INSTANCE.mtf";
 
 # Language / translation
-if [ "$2" -eq "en" ]; then
+if [ "$LNG" == "en" ]; then
 	TEXT[0]='say "[80000]!WARNING![-] Server is out of memory! Possible memory leak."';
 	TEXT[1]='say "Shutdown in 60 seconds, restart may take some minutes." ';
 	TEXT[2]='say "Shutdown in 10..."';
@@ -47,7 +48,7 @@ if [ $1 ]; then
 			echo 'saveworld';
 			sleep 1;
 			echo 'shutdown';
-			sleep 1; } | telnet localhost 8081
+			sleep 1; } | telnet localhost $PORT
 		sleep 10;
 		$SD start $INSTANCE;
 		rm $MTF;
