@@ -52,6 +52,7 @@ if [ $1 ]; then
 		sleep 1; } | telnet localhost $PORT
 	sleep 60;
 	$SD start $INSTANCE;
+	sleep 600;
 	rm $MTF;
 
 fi;

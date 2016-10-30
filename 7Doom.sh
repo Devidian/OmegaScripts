@@ -37,7 +37,7 @@ if [ $1 ]; then
 
 	if [ "$OOM" -gt "0" ]; then
 		touch $MTF;
-	  echo "[$DT] Server instance:  $INSTANCE out of Memory!";
+		echo "[$DT] Server instance:  $INSTANCE out of Memory!";
 		{	echo ${TEXT[0]};
 			echo ${TEXT[1]};
 			sleep 50;
@@ -49,8 +49,9 @@ if [ $1 ]; then
 			sleep 1;
 			echo 'shutdown';
 			sleep 1; } | telnet localhost $PORT
-		sleep 10;
+		sleep 60;
 		$SD start $INSTANCE;
+		sleep 600;
 		rm $MTF;
 	#else
 	#        echo "Alles gut!";
