@@ -11,7 +11,6 @@
 #
 #   0 */3 * * * /root/7Drestart.sh OZCOOPII 8081 >> /root/cronlog/7Drestart.log
 #
-#
 
 INSTANCE=$1;
 PORT=$2;
