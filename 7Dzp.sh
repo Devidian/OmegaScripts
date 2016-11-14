@@ -16,6 +16,7 @@
 #		If the instance state is not running and no processes are found, the instance will not
 #		start! In this case we assume that the instance was shutdown correct.
 
+# If instance arg1 is set
 if [ "$1" ]; then
 	instance=$1;
 	SD="/usr/local/bin/7dtd.sh";

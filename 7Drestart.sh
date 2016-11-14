@@ -33,7 +33,8 @@ else
 	TEXT[3]='say "Neustart in 5..."';
 fi;
 
-if [ $1 ]; then
+# If instance arg is set
+if [ $1 && $2 ]; then
 
 	touch $MTF;
   echo "[$DT] Server instance:  $INSTANCE is going to be restarted!";
