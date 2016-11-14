@@ -49,9 +49,9 @@ if [ $1 ]; then
 		sleep 1;
 		echo 'shutdown';
 		sleep 1; } | telnet localhost $PORT
-	sleep 60;
+	sleep 120; # Give the machine 2 Minutes to shutdown and gc everything
 	$SD start $INSTANCE;
-	sleep 600;
+	sleep 1200; # Get out of Maintainance mode after 20 Minutes, prevent 7dzp to trigger
 	rm $MTF;
 
 fi;
