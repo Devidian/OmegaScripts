@@ -34,7 +34,7 @@ else
 fi;
 
 # If instance arg is set
-if [ $1 && $2 ]; then
+if [ "$1" ] && [ "$2" ]; then
 
 	touch $MTF;
   echo "[$DT] Server instance:  $INSTANCE is going to be restarted!";

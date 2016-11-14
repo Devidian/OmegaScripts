@@ -32,7 +32,7 @@ else
 fi;
 
 
-if [ $1 && $2 ]; then
+if [ "$1" ] && [ "$2" ]; then
 	OOM=$(cat "/home/sdtd/instances/$INSTANCE/logs/current_output_log.txt" | grep "EXC Out" | wc -l);
 
 	if [ "$OOM" -gt "0" ]; then
