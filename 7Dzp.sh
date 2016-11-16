@@ -22,14 +22,14 @@ if [ "$1" ]; then
 	SD="/usr/local/bin/7dtd.sh";
 	DT=`date "+%Y-%m-%d %H-%M"`;
 	MTF="/root/$1.mtf"; # Maintainance file
-	RUNNING=$($SD instances list | grep $instance".*yes"|awk '{print $3}');
+	RUNNING=$($SD instances list | grep $instance".*yes");
 
 	if [ "$RUNNING" ]; then
 		echo "[$DT] Instance $instance is running!";
 	else
 		echo "[$DT] Instance $instance is NOT running! Checking processlist";
 
-		PROCESSES=$(ps axjf|grep "^    1.*"$instance);
+		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*"$instance);
 		COUNT=$(echo "$PROCESSES"|wc -l);
 
 		if [ "$PROCESSES" ]; then
@@ -50,7 +50,7 @@ if [ "$1" ]; then
 			# No zombies found
 			echo "[$DT] No Zombies running ;)";
 			# Check if maintainance mode is active
-			if [ ! -f $MTF ]; then
+			if [ ! -f "$MTF" ]; then
 				# no maintainance (instance should run)
 				echo "[$DT] No maintainance mode! Starting instance...";
 				$SD start $instance;

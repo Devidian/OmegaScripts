@@ -31,45 +31,43 @@ fi;
 
 if [ "$1" ] && [ "$2" ]; then
 
-    INSTANCE=$1;
-    PORT=$2;
-    SD="/usr/local/bin/7dtd.sh";
-    DT=`date "+%Y-%m-%d %H-%M"`;
-    # MTF prevents the anti zombie process to restart the instance
-    MTF="/root/$INSTANCE.mtf";
-	RUNNING=$($SD instances list | grep $instance".*yes"|awk '{print $3}');
+	INSTANCE=$1;
+	PORT=$2;
+	SD="/usr/local/bin/7dtd.sh";
+	DT=`date "+%Y-%m-%d %H-%M"`;
+	# MTF prevents the anti zombie process to restart the instance
+	MTF="/root/$INSTANCE.mtf";
+	RUNNING=$($SD instances list | grep $INSTANCE".*yes");
 
-    if [ "$RUNNING" ]; then
+	if [ ! -f "$MFT" ] && [ "$RUNNING" ]; then
 
-        PROCESSES=$(ps axjf|grep "^    1.*"$instance);
-        if [ "$PROCESSES" ]; then
+		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*"$INSTANCE);
+		if [ "$PROCESSES" ]; then
 			PIDLIST=$(echo "$PROCESSES"|awk '{print $2}');
-            # should only be 1 process
+			# should only be 1 process
 			for PID in $PIDLIST; do
-                VIRT=$(awk 'match($1,"VmPeak"){print $2}' /proc/$PID/status)
-				if [ "$VIRT" -gt "$LIMIT" ]; then
-                    pmap $PID > "~/${DT}memIssue.log";
-                    touch $MTF;
-                    echo "[$DT] Server instance:  $INSTANCE out of Memory!";
-                    {	echo ${TEXT[0]};
-                        echo ${TEXT[1]};
-                        sleep 50;
-                        echo ${TEXT[2]};
-                        sleep 5;
-                        echo ${TEXT[3]};
-                        sleep 5;
-                        echo 'saveworld';
-                        sleep 1;
-                        echo 'shutdown';
-                        sleep 1; } | telnet localhost $PORT
-                    sleep 60;
-                    $SD start $INSTANCE;
-                    sleep 600;
-                    rm $MTF;
-                fi;
-			done
-
-        fi;
-    fi;
-
+				VIRT=$(awk 'match($1,"VmPeak"){print $2}' /proc/$PID/status)
+				if (($VIRT > $LIMIT)); then
+					$(pmap $PID > "~/${DT}memIssue.log");
+					touch $MTF;
+					echo "[$DT] Server instance:  $INSTANCE out of Memory!";
+					{	echo ${TEXT[0]};
+						echo ${TEXT[1]};
+						sleep 50;
+						echo ${TEXT[2]};
+						sleep 5;
+						echo ${TEXT[3]};
+						sleep 5;
+						echo 'saveworld';
+						sleep 1;
+						echo 'shutdown';
+						sleep 1; } | telnet localhost $PORT
+					sleep 60;
+					$SD start $INSTANCE;
+					sleep 600;
+					rm $MTF;
+				fi;
+			done;
+		fi;
+	fi;
 fi;
