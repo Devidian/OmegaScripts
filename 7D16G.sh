@@ -6,7 +6,10 @@
 # SteamId:      76561197972223708
 # E-Mail:       webmaster@omega-center.com
 #
-# Description:  TBD
+# Description:  This script shall prevent server from crashing due to the unity memory bug
+#               (unity cant allocate more than 16GB RAM)
+#               It shall create a pmap file before connecting to telnet, telling player that the server
+#               will shutdown and then saveworld and shutdown. After that the instance should be started again.
 # unity limit: 16GB ~ ‪16777216‬Kb
 
 
@@ -44,7 +47,7 @@ if [ "$1" ] && [ "$2" ]; then
             # should only be 1 process
 			for PID in $PIDLIST; do
                 VIRT=$(awk 'match($1,"VmPeak"){print $2}' /proc/$PID/status)
-				if [ "$VIRT" -gt "16000000" ]; then
+				if [ "$VIRT" -gt "$LIMIT" ]; then
                     pmap $PID > "~/${DT}memIssue.log";
                     touch $MTF;
                     echo "[$DT] Server instance:  $INSTANCE out of Memory!";
