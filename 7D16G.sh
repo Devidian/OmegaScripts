@@ -39,7 +39,7 @@ if [ "$1" ] && [ "$2" ]; then
 	MTF="/root/$INSTANCE.mtf";
 	RUNNING=$($SD instances list | grep $INSTANCE".*yes");
 
-	if [ ! -f "$MFT" ] && [ "$RUNNING" ]; then
+	if [ ! -f $MFT ] && [ "$RUNNING" ]; then
 
 		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*"$INSTANCE);
 		if [ "$PROCESSES" ]; then
@@ -48,7 +48,7 @@ if [ "$1" ] && [ "$2" ]; then
 			for PID in $PIDLIST; do
 				VIRT=$(awk 'match($1,"VmPeak"){print $2}' /proc/$PID/status)
 				if (($VIRT > $LIMIT)); then
-					$(pmap $PID > "~/${DT}memIssue.log");
+					pmap $PID > "/root/${DT}-memIssue.log");
 					touch $MTF;
 					echo "[$DT] Server instance:  $INSTANCE out of Memory!";
 					{	echo ${TEXT[0]};
@@ -64,7 +64,7 @@ if [ "$1" ] && [ "$2" ]; then
 						sleep 1; } | telnet localhost $PORT
 					sleep 60;
 					$SD start $INSTANCE;
-					sleep 600;
+					sleep 300;
 					rm $MTF;
 				fi;
 			done;

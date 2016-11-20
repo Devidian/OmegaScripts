@@ -50,7 +50,7 @@ if [ "$1" ]; then
 			# No zombies found
 			echo "[$DT] No Zombies running ;)";
 			# Check if maintainance mode is active
-			if [ ! -f "$MTF" ]; then
+			if [ ! -f $MTF ]; then
 				# no maintainance (instance should run)
 				echo "[$DT] No maintainance mode! Starting instance...";
 				$SD start $instance;

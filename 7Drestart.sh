@@ -37,7 +37,7 @@ fi;
 if [ "$1" ] && [ "$2" ]; then
 
 	touch $MTF;
-  echo "[$DT] Server instance:  $INSTANCE is going to be restarted!";
+	echo "[$DT] Server instance:  $INSTANCE is going to be restarted!";
 	{	echo ${TEXT[0]};
 		sleep 240;
 		echo ${TEXT[1]};
