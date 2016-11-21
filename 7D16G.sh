@@ -48,7 +48,7 @@ if [ "$1" ] && [ "$2" ]; then
 			for PID in $PIDLIST; do
 				VIRT=$(awk 'match($1,"VmPeak"){print $2}' /proc/$PID/status)
 				if (($VIRT > $LIMIT)); then
-					pmap $PID > "/root/${DT}-memIssue.log");
+					pmap $PID > "/root/${DT}-memIssue.log";
 					touch $MTF;
 					echo "[$DT] Server instance:  $INSTANCE out of Memory!";
 					{	echo ${TEXT[0]};
