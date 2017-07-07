@@ -22,14 +22,14 @@ if [ "$1" ]; then
 	SD="/usr/local/bin/7dtd.sh";
 	DT=`date "+%Y-%m-%d %H-%M"`;
 	MTF="/root/$1.mtf"; # Maintainance file
-	RUNNING=$($SD instances list | grep $instance".*yes");
+	RUNNING=$($SD instances list | grep "$instance .*yes");
 
 	if [ "$RUNNING" ]; then
 		echo "[$DT] Instance $instance is running!";
 	else
 		echo "[$DT] Instance $instance is NOT running! Checking processlist";
 
-		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*"$instance);
+		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*$instance/config");
 		COUNT=$(echo "$PROCESSES"|wc -l);
 
 		if [ "$PROCESSES" ]; then

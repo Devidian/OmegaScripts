@@ -37,11 +37,11 @@ if [ "$1" ] && [ "$2" ]; then
 	DT=`date "+%Y-%m-%d %H-%M"`;
 	# MTF prevents the anti zombie process to restart the instance
 	MTF="/root/$INSTANCE.mtf";
-	RUNNING=$($SD instances list | grep $INSTANCE".*yes");
+	RUNNING=$($SD instances list | grep "$INSTANCE .*yes");
 
 	if [ ! -f $MFT ] && [ "$RUNNING" ]; then
 
-		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*"$INSTANCE);
+		PROCESSES=$(ps axjf|grep "^[ ]* 1 .*$INSTANCE/config");
 		if [ "$PROCESSES" ]; then
 			PIDLIST=$(echo "$PROCESSES"|awk '{print $2}');
 			# should only be 1 process
