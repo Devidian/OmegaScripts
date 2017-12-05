@@ -1,5 +1,11 @@
 # OmegaScripts
+
+## Prerequisite
+All my scripts are only working with a installation of "7 Days to Die - Linux Server Management scripts" from Alloc.
+Instructions can be found here: https://7dtd.illy.bz/wiki/Installation
+
 ## 7 Days to die Scripts by Devidian
+Below you can find all included scripts in this repository
 
 ### 7Drestart.sh INSTANCE TELNETPORT [LANGUAGE]
 * restarts the INSTANCE with a 5 minute (60/10/5 seconds) warning to all players
@@ -28,3 +34,6 @@ I'm using this cronjobs for my server
 *   * * * *     /root/OmegaScripts/7D16G.sh     OZCOOPII 8081   >> /root/cronlog/7D16G.log
 */2 * * * *     /root/OmegaScripts/7Doom.sh     OZCOOPII 8081   >> /root/cronlog/7Doom.log
 ```
+
+## Troubleshooting
+If you have any problems or questions feel free to open an issue.
